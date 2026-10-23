@@ -1,48 +1,87 @@
+
 # Computational Art History
 
-Research portfolio exploring computational art history, machine vision, and critical approaches to AI in visual culture.
+**Research portfolio by Zara Nasiruddin**
 
-## Project 01 — High Renaissance vs. Mannerism
+This repository documents exploratory projects investigating how machine-vision models interpret and classify historical artworks. My work focuses on the use of vision-language models in art history, with particular attention to evaluation, generalisation, and the influence of experimental choices on model outputs.
 
-### Research question
+The projects use CLIP (Contrastive Language–Image Pre-training) to examine two questions: whether visual representations can distinguish High Renaissance from Mannerist paintings when tested on unseen artists, and whether the wording of text prompts affects artwork classification.
 
-To what extent can pretrained vision-language model representations distinguish High Renaissance paintings from Mannerist paintings when evaluated on artists excluded from classifier training?
+These are small-scale experiments intended to explore methodological questions. Their findings are preliminary and should not be treated as definitive conclusions about artistic style or the reliability of AI in art history.
 
-### Method
+## Projects
 
-This exploratory pilot uses frozen image embeddings from OpenAI's pretrained `openai/clip-vit-base-patch32` model, followed by a logistic regression classifier. The evaluation uses an artist-disjoint split to investigate whether the classifier generalizes beyond the artists represented in training.
+### Project 01 — High Renaissance vs. Mannerism
 
-### Preliminary results
+**Question:** Can a classifier using pretrained CLIP image embeddings distinguish High Renaissance from Mannerist paintings when the artists in the test set were excluded from training?
 
-The current pilot notebook reports:
+**Method:** Extracted frozen image embeddings using `openai/clip-vit-base-patch32` and trained a logistic regression classifier. The evaluation used an artist-disjoint split to test generalisation beyond the artists represented in training.
 
-- **Dataset size:** 320 paintings
-- **Training set:** 240 paintings
-- **Test set:** 80 paintings
-- **Training accuracy:** 99.6%
-- **Artist-disjoint test accuracy:** 56.25%
+**Pilot results:**
 
-These results are preliminary and require further verification. The difference between training and test accuracy raises questions about generalization. Accuracy alone cannot establish whether the model captures historically meaningful stylistic characteristics.
+- 320 paintings from 16 artists
+- 240 paintings for training and 80 for testing
+- Training accuracy: 99.6%
+- Test accuracy on unseen artists: 56.25%
+- Accuracy varied across the four held-out artists.
 
-### Data and reproducibility
+**Interpretation:** The large difference between training and test performance raises questions about how well the classifier generalises to artists it has not seen. The results do not establish whether the model has learned historically meaningful stylistic characteristics.
 
-The dataset's exact source, image identifiers, label provenance, and licensing conditions must be documented and verified. The Python environment, dependency versions, random seeds, and data-processing steps will also be recorded to support reproducibility.
+**Status:** Exploratory pilot; further validation is needed.
 
-The notebook is intended to run in Google Colab. Reproduction requires access to the documented data sources and a compatible software environment.
+[View the Project 01 notebook](project-01-renaissance-mannerism.ipynb)
 
-### Limitations and related work
+---
 
-This pilot has a limited sample and tests generalization to a small number of held-out artists. Results may be affected by class balance, artist selection, image quality, historical classification decisions, and dataset composition.
+### Project 02 — CLIP Prompt Robustness in Artwork Classification
 
-Relevant prior research, including work by Ashton and Boisnard, will be reviewed against the original publications before specific claims or novelty statements are made. The relationship between machine-vision performance and art-historical interpretation requires critical examination.
+**Question:** How much do CLIP's artwork classifications change when the wording of text prompts is altered?
 
-### Planned next steps
+**Method:** Compared multiple prompt formulations using a sample of 40 paintings, balanced between High Renaissance and Mannerism. The experiment examined both broader prompt approaches and more controlled wording variations.
 
-1. Verify dataset provenance, labels, and licensing.
-2. Reproduce the pilot in a clean runtime.
-3. Audit the artist-disjoint split and evaluation procedure.
-4. Record dependency versions and random seeds.
-5. Document results, figures, and limitations.
-6. Situate the experiment within verified related literature.
+**Main results:**
 
-**Status:** Exploratory pilot under validation. The current results should not be treated as final research findings.
+- Sample: 40 paintings, with 20 per style.
+- Broad prompt approaches produced accuracies between 45% and 50%.
+- Controlled prompt formulations produced accuracies between 45% and 50%.
+- Every image changed its predicted label at least once across the tested prompt conditions.
+- Agreement between some prompt formulations was high, while others produced substantially different predictions.
+
+**Interpretation:** The results suggest that classifications in this small experiment were sensitive to prompt wording. They illustrate why prompt design should be treated as an experimental choice rather than a neutral description of an artwork.
+
+**Limitations:** The sample is small, and the results cannot establish how consistently these effects occur across larger collections, other styles, or different models.
+
+**Status:** Completed exploratory experiment; broader validation remains necessary.
+
+[View the Project 02 notebook](project2_clip_prompt_robustness.ipynb)
+
+---
+
+## Methods and tools
+
+- Python
+- Google Colab
+- PyTorch and Transformers
+- CLIP image and text embeddings
+- scikit-learn
+- Logistic regression and classification evaluation
+
+## Research approach
+
+These projects approach computational art history as a critical investigation of machine-vision methods rather than an attempt to replace art-historical interpretation with automated labels.
+
+The experiments have encouraged further questions about dataset composition, artist-level generalisation, prompt sensitivity, and the difference between a model's classification and a historically grounded interpretation.
+
+## Limitations and reproducibility
+
+Both projects are exploratory. Their findings should be interpreted in relation to their sample sizes, data selection, evaluation procedures, and implementation constraints.
+
+The first project requires further checks of dataset provenance, artist splits, and reproducibility. The second is limited by its small sample and should be extended before drawing broader conclusions.
+
+The notebooks document the experiments and their outputs. Reproduction may require access to the relevant data sources and a compatible software environment.
+
+## About
+
+I have a background in Computer Arts, university-level teaching, and Project Management. I am developing my computational art-history practice through independent experiments with Python and machine vision.
+
+My research interests include digital art history, computer vision, and the ways computational methods shape how historical images are classified, compared, and interpreted.
